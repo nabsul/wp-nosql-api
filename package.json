@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.0.0-rc.2",
+    "aws-sdk": "^2.2.47",
     "boom": "^3.1.2",
     "good": "^6.6.0",
     "good-console": "^5.3.1",
