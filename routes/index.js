@@ -14,6 +14,7 @@ const testRoute = {
 const routes = Hoek.flatten( [
 	testRoute,
 	require( './posts' ),
+	require( './users' ),
 ] );
 
 exports.register = ( server, options, next ) => {

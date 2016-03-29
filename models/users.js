@@ -6,7 +6,7 @@ const getPartition = ( siteId ) => {
 
 const fetchAll = ( params, callback ) => {
 	crud.fetchAll( {
-		pk: getPartition( params.userId )
+		pk: getPartition( params.siteId )
 	}, callback );
 };
 

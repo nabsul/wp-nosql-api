@@ -13,7 +13,7 @@ const routes = [
 					reply( data );
 				} );
 			},
-			id: 'posts_get_all',
+			id: 'users_get_all',
 		},
 	},
 	{
@@ -28,7 +28,7 @@ const routes = [
 					reply( data );
 				} );
 			},
-			id: 'posts_get_one',
+			id: 'users_get_one',
 		},
 	},
 	{
@@ -43,7 +43,7 @@ const routes = [
 					reply( data );
 				} );
 			},
-			id: 'posts_put',
+			id: 'users_put',
 		},
 	},
 	{
@@ -58,7 +58,7 @@ const routes = [
 					reply( data );
 				} );
 			},
-			id: 'posts_delete',
+			id: 'users_delete',
 		},
 	},
 ];
