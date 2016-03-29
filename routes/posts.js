@@ -1,50 +1,62 @@
+const models = require( '../models' );
+const posts = models.posts;
+
 const routes = [
 	{
 		method: 'GET',
-		path: '/posts',
+		path: '/site/{site}/posts',
 		config: {
 			handler: function( request, reply ) {
-				reply( { message: 'hello world' } );
+				posts.fetchAll( {
+					siteId: request.params.site
+				}, ( err, data ) => {
+					reply( data );
+				} );
 			},
 			id: 'posts_get_all',
 		},
 	},
 	{
 		method: 'GET',
-		path: '/posts/{id}',
+		path: '/site/{site}/posts/{id}',
 		config: {
 			handler: function( request, reply ) {
-				reply( { message: 'hello world' } );
+				posts.fetch( {
+					siteId: request.params.site,
+					postId: request.params.id,
+				}, ( err, data ) => {
+					reply( data );
+				} );
 			},
 			id: 'posts_get_one',
 		},
 	},
 	{
-		method: 'POST',
-		path: '/posts',
-		config: {
-			handler: function( request, reply ) {
-				reply( { message: 'hello world' } );
-			},
-			id: 'posts_post',
-		},
-	},
-	{
 		method: 'PUT',
-		path: '/posts/{id}',
+		path: '/site/{site}/posts',
 		config: {
 			handler: function( request, reply ) {
-				reply( { message: 'hello world' } );
+				posts.put( {
+					siteId: request.params.site,
+					item: request.payload,
+				}, ( err, data ) => {
+					reply( data );
+				} );
 			},
 			id: 'posts_put',
 		},
 	},
 	{
 		method: 'DELETE',
-		path: '/posts/{id}',
+		path: '/site/{site}/posts/{id}',
 		config: {
 			handler: function( request, reply ) {
-				reply( { message: 'hello world' } );
+				posts.remove( {
+					siteId: request.params.site,
+					postId: request.params.id,
+				}, ( err, data ) => {
+					reply( data );
+				} );
 			},
 			id: 'posts_delete',
 		},
