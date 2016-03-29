@@ -22,3 +22,11 @@ const callback = ( err, data ) => {
 };
 
 dynamo.query( params, callback );
+
+
+dynamo.getItem( {
+	Key: {
+		pk: { S: 'test' },
+		id: { S: '00002' },
+	}
+}, callback );
