@@ -7,7 +7,6 @@ AWS.config.apiVersions = {
 const config = {
 	params: {
 		TableName: 'wp_nosql',
-
 	},
 	accessKeyId: process.env.WP_NOSQL_ID,
 	secretAccessKey: process.env.WP_NOSQL_KEY,
