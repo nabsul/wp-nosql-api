@@ -4,11 +4,28 @@
   "description": "A nosql-backed implementation of WordPress's API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "./node_modules/.bin/nodemon index.js",
+    "test": "./node_modules/.bin/lab -v -L -c -t 100"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hapi": "^13.2.2"
+    "async": "^2.0.0-rc.2",
+    "boom": "^3.1.2",
+    "good": "^6.6.0",
+    "good-console": "^5.3.1",
+    "good-file": "^5.1.2",
+    "good-squeeze": "^3.0.0",
+    "hapi": "^13.2.2",
+    "hoek": "^3.0.4",
+    "joi": "^8.0.5",
+    "lodash": "^4.6.1"
+  },
+  "devDependencies": {
+    "code": "^2.1.1",
+    "eslint": "^2.4.0",
+    "lab": "10.2.0",
+    "nock": "^7.4",
+    "nodemon": "^1.9.1"
   }
 }
