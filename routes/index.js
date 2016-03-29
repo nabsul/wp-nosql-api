@@ -1,20 +1,9 @@
 const Hoek = require( 'hoek' );
 
-const testRoute = {
-	method: 'GET',
-	path: '/',
-	config: {
-		handler: function( request, reply ) {
-			reply( { message: 'hello world' } );
-		},
-		id: 'index',
-	},
-};
-
 const routes = Hoek.flatten( [
-	testRoute,
-	require( './posts' ),
 	require( './users' ),
+	require( './posts' ),
+	require( './comments' ),
 ] );
 
 exports.register = ( server, options, next ) => {

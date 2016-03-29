@@ -1,7 +1,9 @@
-const posts = require( './posts' );
 const users = require( './users' );
+const posts = require( './posts' );
+const comments = require( './users' );
 
 module.exports = {
-	posts,
 	users,
+	posts,
+	comments,
 };
