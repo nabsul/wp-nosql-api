@@ -3,8 +3,8 @@ const dynamo = require( './dynamodb' );
 const getLookupParams = ( params ) => {
 	return {
 		Key: {
-			dynamoPk: { S: params.dynamoPk },
-			dynamoId: { S: params.dynamoId },
+			dynamoPk: { S: params.dynamoPk.toString() },
+			dynamoId: { S: params.dynamoId.toString() },
 		},
 	};
 };
@@ -25,7 +25,9 @@ const apiToDynamo = ( item ) => {
 	const ret =  {};
 
 	Object.keys( item ).forEach( ( k ) => {
-		ret[ k ] = { S: item[ k ] };
+		if ( item[ k ] ) {
+			ret[ k ] = { S: item[ k ].toString() };
+		}
 	} );
 
 	return ret;
