@@ -1,11 +1,13 @@
-const users = require( './users' );
-const posts = require( './posts' );
-const comments = require( './users' );
-const commentMeta = require( './comment-meta' );
-
 module.exports = {
-	users,
-	posts,
-	comments,
-	commentMeta,
+	options: require( './options' ),
+	users: require( './user' ),
+	userMeta: require( './user-meta' ),
+	posts: require( './posts' ),
+	postsMeta: require( './post-meta' ),
+	comments: require( './comments' ),
+	commentMeta: require( './comment-meta' ),
+	terms: require( './terms' ),
+	termsMeta: require( './terms-meta' ),
+	termsRelationships: require( './terms-relationships' ),
+	termsTaxonomy: require( './terms-taxonomy' ),
 };

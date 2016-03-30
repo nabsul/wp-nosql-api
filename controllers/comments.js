@@ -1,7 +1,7 @@
 const Controller = require( './controller' );
 
 const controller = new Controller( {
-	getPartitionName: params => 'site_' + params.site + '_posts_' + params.post + '_comments',
+	getPartitionName: params => 'site_' + params.site + '_post_' + params.post + '_comments',
 	getParamId: params => params.comment,
 	getPayloadId: payload => payload.comment_ID,
 } );
