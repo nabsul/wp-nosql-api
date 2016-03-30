@@ -5,12 +5,12 @@ AWS.config.apiVersions = {
 };
 
 const config = {
-	params: {
-		TableName: 'wp_nosql',
-	},
 	accessKeyId: process.env.WP_NOSQL_ID,
 	secretAccessKey: process.env.WP_NOSQL_KEY,
 	region: 'us-west-2',
+	params: {
+		TableName: process.env.WP_NOSQL_TABLE,
+	},
 };
 
 const dynamodb = new AWS.DynamoDB( config );

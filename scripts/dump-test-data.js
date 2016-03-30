@@ -1,4 +1,4 @@
-const dynamo = require( '../models/dynamodb' );
+const dynamo = require( './dynamodb' );
 
 const params = {
 	KeyConditionExpression: 'pk = :test',

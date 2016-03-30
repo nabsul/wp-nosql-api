@@ -1,11 +1,11 @@
 const dynamo = require( './dynamodb' );
 
-const getKeyValue = ( params ) => {
+const getLookupParams = ( params ) => {
 	return {
 		Key: {
-			pk: { S: params.pk },
-			id: { S: params.id },
-		}
+			dynamoPk: { S: params.dynamoPk },
+			dynamoId: { S: params.dynamoId },
+		},
 	};
 };
 
@@ -13,7 +13,9 @@ const dynamoToApi = ( item ) => {
 	const ret = {};
 
 	Object.keys( item ).forEach( ( k ) => {
-		ret[ k ] = item[ k ].S;
+		if ( 'dynamoPk' !== k && 'dynamoId' !== k ) {
+			ret[ k ] = item[ k ].S;
+		}
 	} );
 
 	return ret;
@@ -30,10 +32,11 @@ const apiToDynamo = ( item ) => {
 };
 
 const fetchAll = ( params, callback ) => {
+	console.dir(params);
 	const query = {
-		KeyConditionExpression: 'pk = :pk',
+		KeyConditionExpression: 'dynamoPk = :pk',
 		ExpressionAttributeValues: {
-			':pk': { S: params.pk },
+			':pk': { S: params.dynamoPk },
 		},
 	};
 
@@ -47,7 +50,7 @@ const fetchAll = ( params, callback ) => {
 };
 
 const fetch = ( params, callback ) => {
-	dynamo.getItem( getKeyValue( params ), ( err, data ) => {
+	dynamo.getItem( getLookupParams( params ), ( err, data ) => {
 		if ( err ) {
 			return callback( err );
 		}
@@ -61,25 +64,24 @@ const fetch = ( params, callback ) => {
 };
 
 const put = ( item, callback ) => {
-	console.dir( item );
 	dynamo.putItem( {
-		Item: apiToDynamo( item )
+		Item: apiToDynamo( item ),
 	}, ( err ) => {
 		if ( err ) {
 			return callback( err );
 		}
 
-		callback( null, item );
+		fetch( item, callback );
 	} );
 };
 
 const remove = ( params, callback ) => {
-	dynamo.deleteItem( getKeyValue( params ), ( err, data ) => {
+	dynamo.deleteItem( getLookupParams( params ), ( err, data ) => {
 		if ( err ) {
 			return callback( err );
 		}
 
-		callback( null, dynamoToApi( data.Item ) );
+		callback( null, null );
 	} );
 };
 

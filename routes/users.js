@@ -1,33 +1,19 @@
-const models = require( '../models' );
-const users = models.users;
+const users = require( '../controllers' ).users;
 
-const routes = [
+module.exports = [
 	{
 		method: 'GET',
 		path: '/site/{site}/users',
 		config: {
-			handler: function( request, reply ) {
-				users.fetchAll( {
-					siteId: request.params.site
-				}, ( err, data ) => {
-					reply( data );
-				} );
-			},
+			handler: users.fetchAll,
 			id: 'users_get_all',
 		},
 	},
 	{
 		method: 'GET',
-		path: '/site/{site}/users/{id}',
+		path: '/site/{site}/users/{user}',
 		config: {
-			handler: function( request, reply ) {
-				users.fetch( {
-					siteId: request.params.site,
-					postId: request.params.id,
-				}, ( err, data ) => {
-					reply( data );
-				} );
-			},
+			handler: users.fetch,
 			id: 'users_get_one',
 		},
 	},
@@ -35,32 +21,16 @@ const routes = [
 		method: 'PUT',
 		path: '/site/{site}/users',
 		config: {
-			handler: function( request, reply ) {
-				users.put( {
-					siteId: request.params.site,
-					item: request.payload,
-				}, ( err, data ) => {
-					reply( data );
-				} );
-			},
+			handler: users.put,
 			id: 'users_put',
 		},
 	},
 	{
 		method: 'DELETE',
-		path: '/site/{site}/users/{id}',
+		path: '/site/{site}/users/{user}',
 		config: {
-			handler: function( request, reply ) {
-				users.remove( {
-					siteId: request.params.site,
-					postId: request.params.id,
-				}, ( err, data ) => {
-					reply( data );
-				} );
-			},
+			handler: users.remove,
 			id: 'users_delete',
 		},
 	},
 ];
-
-module.exports = routes;

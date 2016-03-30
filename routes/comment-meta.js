@@ -1,9 +1,9 @@
-const comments = require( '../controllers' ).comments;
+const commentMeta = require( '../controllers' ).commentMeta;
 
 module.exports = [
 	{
 		method: 'GET',
-		path: '/site/{site}/posts/{post}/comments',
+		path: '/site/{site}/posts/{post}/comments/{comment}/meta',
 		config: {
 			handler: comments.fetchAll,
 			id: 'comments_get_all',
@@ -11,7 +11,7 @@ module.exports = [
 	},
 	{
 		method: 'GET',
-		path: '/site/{site}/posts/{post}/comments/{comment}',
+		path: '/site/{site}/posts/{post}/comments/{comment}/meta/{meta}',
 		config: {
 			handler: comments.fetch,
 			id: 'comments_get_one',
@@ -19,7 +19,7 @@ module.exports = [
 	},
 	{
 		method: 'PUT',
-		path: '/site/{site}/posts/{post}/comments',
+		path: '/site/{site}/posts/{post}/comments/{comment}/meta',
 		config: {
 			handler: comments.put,
 			id: 'comments_put',
@@ -27,7 +27,7 @@ module.exports = [
 	},
 	{
 		method: 'DELETE',
-		path: '/site/{site}/posts/{post}/comments/{comment}',
+		path: '/site/{site}/posts/{post}/comments/{comment}/meta/{meta}',
 		config: {
 			handler: comments.remove,
 			id: 'comments_delete',
