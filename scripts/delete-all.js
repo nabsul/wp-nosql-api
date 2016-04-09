@@ -12,7 +12,7 @@ dynamo.scan( {}, ( err, data ) => {
 		};
 		dynamo.deleteItem( key, ( err, data ) => {
 			if ( err ) return console.dir( err );
-			console.dir( data );
+			console.log( 'deleted: ' + item.dynamoPk.S + ' - ' + item.dynamoId.S )
 		} );
 	} );
 } );

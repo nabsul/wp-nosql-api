@@ -5,5 +5,6 @@ dynamo.scan( {}, ( err, data ) => {
 		return console.dir( err );
 	}
 
-	console.dir( data );
+	data.Items.forEach( i => console.dir( { pk: i.dynamoPk.S, id: i.dynamoId.S } ) );
+	console.dir(data, {depth:0})
 } );
