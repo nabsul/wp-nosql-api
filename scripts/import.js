@@ -13,13 +13,13 @@ connection.connect();
 const upload = params =>
 	connection.query('SELECT * FROM ' + params.table, function( err, rows ) {
 		if (err) throw err;
-
+		console.log( params.table + ': ' + rows.length );
 		rows.forEach( ( row ) => {
 			params.controller.put( {
 				params: params.getParams( row ),
 				payload: row,
 			}, ( data ) => {
-				console.log( params.table + ' ' + JSON.stringify( params.getParams( row ) ) );
+				//console.log( params.table + ' ' + JSON.stringify( params.getParams( row ) ) );
 			} );
 		} );
 	});
@@ -91,7 +91,7 @@ upload( {
 } );
 
 upload( {
-	table: 'wp_usersmeta',
+	table: 'wp_usermeta',
 	controller: controller.users,
 	getParams: ( row ) => { return { site: 1, user: row.user_id }; },
 } );
