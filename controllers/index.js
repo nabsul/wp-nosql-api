@@ -10,5 +10,4 @@ module.exports = {
 	termMeta: require( './term-meta' ),
 	termRelationships: require( './term-relationships' ),
 	termTaxonomy: require( './term-taxonomy' ),
-	links: require( './links' ),
 };

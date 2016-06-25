@@ -1,5 +1,5 @@
 const mysql = require( 'mysql' );
-const controller = require( '../controllers' );
+const ddb = require( '../controllers/dynamodb' );
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
@@ -10,8 +10,26 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-const upload = params =>
-	connection.query('SELECT * FROM ' + params.table, function( err, rows ) {
+connection.query( 'SELECT * FROM wp_posts', ( err, rows ) => {
+	if ( err ) throw err;
+
+	rows.forEach( ( row ) => {
+		ddb.putItem( {
+			Item: {
+				dynamoPk: { S: 'site_1_posts' },
+				dynamoId: { S: row.ID.toString() },
+				data: { S: JSON.stringify( row ) },
+			},
+		}, ( error, data ) => {
+			if ( error ) throw error;
+			console.dir( data );
+		} );
+	} );
+} );
+
+/*
+const upload = ( params ) =>
+	connection.query('SELECT * FROM ' + params.table, ( err, rows ) => {
 		if (err) throw err;
 		console.log( params.table + ': ' + rows.length );
 		rows.forEach( ( row ) => {
@@ -22,7 +40,7 @@ const upload = params =>
 				//console.log( params.table + ' ' + JSON.stringify( params.getParams( row ) ) );
 			} );
 		} );
-	});
+	} );
 
 upload( {
 	table: 'wp_posts',
@@ -39,19 +57,13 @@ upload( {
 upload( {
 	table: 'wp_comments',
 	controller: controller.comments,
-	getParams: ( row ) => { return { site: 1, post: row.post_id }; },
+	getParams: ( row ) => { return { site: 1, post: row.comment_post_ID }; },
 } );
 
 upload( {
 	table: 'wp_commentmeta LEFT JOIN wp_comments ON wp_commentmeta.comment_id=wp_comments.comment_id',
 	controller: controller.commentMeta,
 	getParams: ( row ) => { return { site: 1, post: row.post_id, comment: row.comment_id }; },
-} );
-
-upload( {
-	table: 'wp_links',
-	controller: controller.links,
-	getParams: ( row ) => { return { site: 1 }; },
 } );
 
 upload( {
@@ -75,12 +87,12 @@ upload( {
 upload( {
 	table: 'wp_term_relationships',
 	controller: controller.termRelationships,
-	getParams: ( row ) => { return { site: 1, term: row.term_id }; },
+	getParams: ( row ) => { return { site: 1, term: row.term_taxonomy_id }; },
 } );
 
 upload( {
 	table: 'wp_term_taxonomy',
-	controller: controller.termRelationships,
+	controller: controller.termTaxonomy,
 	getParams: ( row ) => { return { site: 1, term: row.term_id }; },
 } );
 
@@ -95,5 +107,7 @@ upload( {
 	controller: controller.users,
 	getParams: ( row ) => { return { site: 1, user: row.user_id }; },
 } );
+
+*/
 
 connection.end();

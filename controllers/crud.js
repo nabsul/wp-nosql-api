@@ -34,7 +34,6 @@ const apiToDynamo = ( item ) => {
 };
 
 const fetchAll = ( params, callback ) => {
-	console.dir(params);
 	const query = {
 		KeyConditionExpression: 'dynamoPk = :pk',
 		ExpressionAttributeValues: {
