@@ -19,8 +19,8 @@ const dynamoToApi = ( item ) => {
 };
 
 const apiToDynamo = ( item ) => {
-	return _.mapValues( item, ( value ) => {
-		return { S: value };
+	return _.mapValues( _.pickBy( item, v => v ), ( value ) => {
+			return { S: value.toString() };
 	} );
 };
 
