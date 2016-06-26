@@ -1,24 +1,24 @@
-const ddb = require( '../controllers/dynamodb' );
+const ddb = require( '../lib/dynamodb' ).dynamoDb;
 
 ddb.createTable( {
 	TableName: 'wp_nosql',
 	KeySchema: [
 		{
-			AttributeName: 'dynamoPk',
+			AttributeName: 'partitionKey',
 			KeyType: 'HASH'
 		},
 		{
-			AttributeName: 'dynamoId',
+			AttributeName: 'rowKey',
 			KeyType: 'RANGE'
 		},
 	],
 	AttributeDefinitions: [
 		{
-			AttributeName: 'dynamoPk',
+			AttributeName: 'partitionKey',
 			AttributeType: 'S'
 		},
 		{
-			AttributeName: 'dynamoId',
+			AttributeName: 'rowKey',
 			AttributeType: 'S'
 		},
 	],

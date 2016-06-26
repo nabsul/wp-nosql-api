@@ -1,8 +1,6 @@
-const ddb = require( '../controllers/dynamodb' );
+const ddb = require( '../lib/dynamodb' ).dynamoDb;
 
-ddb.deleteTable( {
-	TableName: 'wp_nosql',
-}, ( err, data ) => {
+ddb.deleteTable( {}, ( err, data ) => {
 	if ( err ) throw err;
 	console.dir( data );
 } );

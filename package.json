@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon index.js",
-    "test": "./node_modules/.bin/lab -v -L -c -t 100"
+    "test": "./node_modules/.bin/lab -v -L -c -t 100",
+    "import": "node scripts/import",
+    "delete-all": "node scripts/delete-all",
+    "list-all": "node scripts/list-all",
+    "create-table": "node scripts/create-table",
+    "delete-table": "node scripts/delete-table"
   },
   "author": "",
   "license": "ISC",

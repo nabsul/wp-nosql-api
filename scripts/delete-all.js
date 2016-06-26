@@ -1,18 +1,12 @@
-const dynamo = require( '../controllers/dynamodb' );
+const dynamo = require( '../lib/dynamodb' );
 
-dynamo.scan( {}, ( err, data ) => {
-	if ( err ) return console.dir( err );
+dynamo.dynamoDb.scan( {}, ( error, data ) => {
+	if ( error ) throw error;
 
 	data.Items.forEach( item => {
-		const key = {
-			Key: {
-				dynamoPk: { S: item.dynamoPk.S },
-				dynamoId: { S: item.dynamoId.S },
-			},
-		};
-		dynamo.deleteItem( key, ( err, data ) => {
-			if ( err ) return console.dir( err );
-			console.log( 'deleted: ' + item.dynamoPk.S + ' - ' + item.dynamoId.S )
+		dynamo.remove( item.partitionKey.S, item.rowKey.S, ( err ) => {
+			if ( err ) throw err;
+			console.log( 'deleted: ' + item.partitionKey.S + ' - ' + item.rowKey.S )
 		} );
 	} );
 } );
