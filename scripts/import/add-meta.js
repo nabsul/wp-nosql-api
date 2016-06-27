@@ -7,7 +7,8 @@ const updateItem = ( row, params, callback ) => {
 	const rk = params.getRk( row );
 	ddb.fetch( pk, rk, ( error, item ) => {
 		if ( error ) return callback( error );
-		item.meta = Object.assign( item.meta || {}, { [ row.meta_key ]: row } );
+		item.meta = item.meta || {};
+		item.meta[ row.meta_key ] = row.meta_value || null;
 		console.log( 'added meta to ' + item.partitionKey + ' / ' + item.rowKey + ' : ' + row.meta_key );
 		ddb.put( item, callback );
 	} );
