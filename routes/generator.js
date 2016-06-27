@@ -1,34 +1,34 @@
-module.exports = params => [
+module.exports = ( name, paramName, basePath, controller ) => [
 	{
 		method: 'GET',
-		path: params.basePath,
+		path: basePath,
 		config: {
-			handler: params.controller.fetchAll,
-			id: params.name + '_get_all',
+			handler: controller.fetchAll,
+			id: name + '_get_all',
 		},
 	},
 	{
 		method: 'GET',
-		path: params.basePath + '/{' + params.paramName + '}',
+		path: basePath + '/{' + paramName + '}',
 		config: {
-			handler: params.controller.fetch,
-			id: params.name + '_get_one',
+			handler: controller.fetch,
+			id: name + '_get_one',
 		},
 	},
 	{
 		method: 'PUT',
-		path: params.basePath,
+		path: basePath,
 		config: {
-			handler: params.controller.put,
-			id: params.name + '_put',
+			handler: controller.put,
+			id: name + '_put',
 		},
 	},
 	{
 		method: 'DELETE',
-		path: params.basePath + '/{' + params.paramName + '}',
+		path: basePath + '/{' + paramName + '}',
 		config: {
-			handler: params.controller.remove,
-			id: params.name + '_delete',
+			handler: controller.remove,
+			id: name + '_delete',
 		},
 	},
 ];
