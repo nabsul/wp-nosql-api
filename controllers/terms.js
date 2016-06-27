@@ -1,4 +1,4 @@
-const Controller = require( './controller' );
+const Controller = require( '../lib/controller' );
 
 const controller = new Controller( {
 	getPartitionName: params => 'site_' + params.site + '_terms',
