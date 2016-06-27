@@ -1,7 +1,7 @@
 'use strict';
 const mysql = require( 'mysql' );
 const Async = require( 'async' );
-const ddb = require( '../lib/dynamodb' );
+const ddb = require( '../../lib/dynamodb' );
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
