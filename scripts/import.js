@@ -96,7 +96,29 @@ const addTaxonomy = ( callback ) => {
 	} );
 };
 
-Async.series( [ ...importTasks, addTaxonomy ], ( error, result ) => {
+const updatePostTaxonomy = ( callback ) => {
+	const query = 'SELECT * FROM wp_term_relationships AS A LEFT JOIN wp_terms AS B ON A.term_taxonomy_id=B.term_id ORDER BY object_id, term_order';
+	connection.query( query, ( error, rows ) => {
+		if ( error ) return callback( error );
+
+		const tasks = rows.map( ( row ) => ( cb ) => {
+			ddb.fetch( 'site_1_posts', row.object_id.toString(), ( err, post ) => {
+				if ( err ) return cb( err );
+
+				const arr = post.terms || [];
+				arr.push( row.slug );
+				post.terms = arr;
+
+				console.log( 'updating post ' + post.ID + ' with term ' + row.slug );
+				ddb.put( post, cb );
+			} )
+		} );
+
+		Async.parallel( tasks, callback );
+	} );
+};
+
+Async.series( [ ...importTasks, addTaxonomy, updatePostTaxonomy ], ( error, result ) => {
 	console.dir( error );
 	console.dir( result );
 	connection.end();
