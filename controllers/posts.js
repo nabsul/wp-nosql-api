@@ -1,9 +1,9 @@
 const Controller = require( '../lib/controller' );
 
 const controller = new Controller( {
-	getPartitionName: params => 'site_' + params.site + '_posts',
-	getParamId: params => params.post,
-	getPayloadId: payload => payload.ID,
+	getPkFromParams: params => 'site_' + params.site + '_posts',
+	getRkFromParams: params => params.post,
+	getRkFromPayload: payload => payload.ID,
 } );
 
 module.exports = controller.getExports();

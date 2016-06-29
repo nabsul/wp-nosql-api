@@ -16,6 +16,14 @@ module.exports = ( name, paramName, basePath, controller ) => [
 		},
 	},
 	{
+		method: 'POST',
+		path: basePath,
+		config: {
+			handler: controller.post,
+			id: name + '_post',
+		},
+	},
+	{
 		method: 'PUT',
 		path: basePath,
 		config: {
