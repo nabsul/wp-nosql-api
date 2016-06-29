@@ -8,6 +8,14 @@ module.exports = ( name, paramName, basePath, controller ) => [
 		},
 	},
 	{
+		method: 'POST',
+		path: basePath + '/search',
+		config: {
+			handler: controller.search,
+			id: name + '_search',
+		},
+	},
+	{
 		method: 'GET',
 		path: basePath + '/{' + paramName + '}',
 		config: {
