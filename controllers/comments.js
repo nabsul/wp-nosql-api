@@ -1,11 +1,10 @@
 'use strict';
 const Boom = require( 'boom' );
-const docs = require( '../lib/dynamodb' ).dynamoDocs;
-const Controller = require( '../lib/controller' );
+const ddb = require( '../lib/dynamodb' );
+const docs = ddb.dynamoDocs;
 
 const replyHandler = ( err, data, reply ) => {
 	if ( err ) {
-
 		return reply( Boom.badImplementation( 'error encountered', err ) );
 	}
 
@@ -22,15 +21,21 @@ class CommentsController {
 			ExpressionAttributeValues: {
 				':comment_string': '_comments',
 			}
-		}, ( error, data ) => {
-			console.dir( error );
-			console.dir( data );
-			reply( data.Items );
-		} );
+		}, ( error, data ) => replyHandler( error, data.Items, reply ) );
 	};
 
 	search( request, reply ) {
-		reply( new Boom.badImplementation( 'endpoint not implemented' ) );
+		const query = ddb.getQueryParams( request.payload );
+		console.dir( query );
+
+		if ( 0 < query.FilterExpression.length ) {
+			query.FilterExpression += ' AND ';
+		}
+
+		query.FilterExpression += 'contains( partitionKey, :comment_string )';
+		query.ExpressionAttributeValues[ ':comment_string'] = '_comments';
+
+		docs.scan( query, ( error, data ) => replyHandler( error, data, reply ) );
 	}
 
 	fetch( request, reply ) {
