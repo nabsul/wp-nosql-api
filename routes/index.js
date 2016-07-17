@@ -6,7 +6,8 @@ const routes = Hoek.flatten( [
 	Generator( 'options', 'option', '/site/{site}/options', controllers.options ),
 	Generator( 'users', 'user', '/site/{site}/users', controllers.users ),
 	Generator( 'posts', 'post', '/site/{site}/posts', controllers.posts ),
-	Generator( 'comments', 'comment', '/site/{site}/posts/{post}/comments', controllers.comments ),
+	Generator( 'post-comments', 'comment', '/site/{site}/posts/{post}/comments', controllers.postComments ),
+	Generator( 'comments', 'comment', '/site/{site}/comments', controllers.comments ),
 	Generator( 'terms', 'term', '/site/{site}/terms', controllers.terms ),
 ] );
 
