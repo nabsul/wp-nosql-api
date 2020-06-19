@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "code": "^2.1.1",
-    "eslint": "^2.4.0",
+    "eslint": "^7.3.0",
     "lab": "10.2.0",
     "nock": "^7.4",
     "nodemon": "^1.9.1"
